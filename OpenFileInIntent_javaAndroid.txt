@@ -1,0 +1,30 @@
+onCreate()
+
+Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+                        chooseFile.setType("text/plain");
+                        chooseFile = Intent.createChooser(chooseFile, "Choose a text document");
+                        startActivityForResult(chooseFile, OPEN_TXT_FILE_REQUEST_CODE);
+-------------------------------------------------------------------------------------------------
+
+onActivityResult()
+
+ switch(requestCode){
+            case OPEN_TXT_FILE_REQUEST_CODE:
+                if (resultCode==-1){
+                    Uri uri = data.getData();
+                    String sourcePath = uri.getPath();
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(uri);
+                        BufferedReader raadee = new BufferedReader(new InputStreamReader(inputStream));
+                        StringBuilder stringBuilder = new StringBuilder();
+                        String line;
+                        while((line = raadee.readLine()) != null){
+                            stringBuilder.append(line);
+                        }
+                        et_input_text.setText(stringBuilder);
+                    }catch (Exception e){
+                        //handle exceptions
+                        }
+                    }
+                }
+        }
